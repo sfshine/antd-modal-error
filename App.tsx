@@ -1,29 +1,19 @@
-import React from "react";
-import { ApplicationProvider, Button, Tooltip } from "@ui-kitten/components";
+import * as React from "react";
+import { PaperProvider } from "react-native-paper";
+import Page from "./Page";
 import * as eva from "@eva-design/eva";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { FeatherIconsPack } from "./feather-icons";
 
-export const TooltipSimpleUsageShowcase = (): React.ReactElement => {
-
-  const [visible, setVisible] = React.useState(false);
-
-  const renderToggleButton = (): React.ReactElement => (
-    <Button onPress={() => setVisible(true)}>
-      TOGGLE TOOLTIP
-    </Button>
-  );
-
+export default function Main() {
   return (
-    <Tooltip
-      anchor={renderToggleButton}
-      visible={visible}
-      onBackdropPress={() => setVisible(false)}
-    >
-      Welcome to UI Kitten 😻涮火锅
-    </Tooltip>
+    <>
+      <IconRegistry icons={FeatherIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <PaperProvider>
+          <Page />
+        </PaperProvider>
+      </ApplicationProvider>
+    </>
   );
-};
-export default () => (
-  <ApplicationProvider {...eva} theme={eva.light}>
-    <TooltipSimpleUsageShowcase />
-  </ApplicationProvider>
-);
+}
