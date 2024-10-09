@@ -1,220 +1,105 @@
-/* tslint:disable:no-console */
-import {
-  Provider,
-  Button,
-  Modal,
-  Toast,
-  WhiteSpace,
-  WingBlank,
-} from '@ant-design/react-native'
-import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Slider, Text, Icon } from '@rneui/themed';
 
-export default class BasicModalExample extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props)
-    this.state = {
-      visible: false,
-      visible1: false,
-      visible2: false,
-    }
-  }
+type SlidersComponentProps = {};
 
-  onClose = () => {
-    this.setState({
-      visible: false,
-    })
-  }
+const Sliders: React.FunctionComponent<SlidersComponentProps> = () => {
+  const [value, setValue] = useState(0);
+  const [vertValue, setVertValue] = useState(0);
 
-  onClose1 = () => {
-    this.setState({
-      visible1: false,
-    })
-  }
+  const interpolate = (start: number, end: number) => {
+    let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
+    return Math.ceil((1 - k) * start + k * end) % 256;
+  };
 
-  onClose2 = () => {
-    this.setState({
-      visible2: false,
-    })
-  }
+  const color = () => {
+    let r = interpolate(255, 0);
+    let g = interpolate(0, 255);
+    let b = interpolate(0, 0);
+    return `rgb(${r},${g},${b})`;
+  };
 
-  onButtonClick = () => {
-    Modal.alert('Title', 'alert content', [
-      { text: 'Cancel', onPress: () => console.log('cancel'), style: 'cancel' },
-      { text: 'OK', onPress: () => console.log('ok') },
-    ])
-  }
+  return (
+    <>
+      <Text style={styles.subHeader}>Horizontal Slider</Text>
 
-  onButtonClickPromise = () => {
-    Modal.alert('Title', 'promise button', [
-      {
-        text: 'Cancel',
-        onPress: () => {
-          Toast.info('onPress promise resolve', 1)
-          return new Promise((resolve) => {
-            setTimeout(resolve, 1000)
-          })
-        },
-        style: 'cancel',
-      },
-      {
-        text: 'Hold on',
-        onPress: () => {
-          Toast.info('onPress promise reject', 1)
-          return new Promise((_, reject) => {
-            setTimeout(reject, 1000)
-          })
-        },
-      },
-    ])
-  }
+      <View style={[styles.contentView]}>
+        <Slider
+          value={value}
+          onValueChange={setValue}
+          maximumValue={10}
+          minimumValue={0}
+          step={1}
+          allowTouchTrack
+          trackStyle={{ height: 5, backgroundColor: 'transparent' }}
+          thumbStyle={{ height: 20, width: 20, backgroundColor: 'transparent' }}
+          thumbProps={{
+            children: (
+              <Icon
+                name="heartbeat"
+                type="font-awesome"
+                size={20}
+                reverse
+                containerStyle={{ bottom: 20, right: 20 }}
+                color={color()}
+              />
+            ),
+          }}
+        />
+        <Text style={{ paddingTop: 20 }}>Value: {value}</Text>
+      </View>
+      <Text style={styles.subHeader}>Vertical Slider</Text>
+      <View style={styles.verticalContent}>
+        <Slider
+          value={vertValue}
+          onValueChange={setVertValue}
+          maximumValue={50}
+          minimumValue={20}
+          step={1}
+          orientation="vertical"
+          thumbStyle={{ height: 20, width: 16, backgroundColor: 'transparent' }}
+          thumbProps={{
+            children: (
+              <Icon
+                name="heartbeat"
+                type="font-awesome"
+                size={20}
+                reverse
+                containerStyle={{ bottom: 20, right: 20 }}
+                color="#f50"
+              />
+            ),
+          }}
+        />
+      </View>
+      <Text style={{ paddingLeft: 25 }}>Value: {vertValue}</Text>
+    </>
+  );
+};
 
-  onButtonClick2 = () => {
-    Modal.operation([
-      { text: '标为未读', onPress: () => console.log('标为未读被点击了') },
-      { text: '置顶聊天', onPress: () => console.log('置顶聊天被点击了') },
-    ])
+const styles = StyleSheet.create({
+  contentView: {
+    padding: 20,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'stretch',
+  },
+  verticalContent: {
+    padding: 20,
+    flex: 1,
+    flexDirection: 'row',
+    height: 500,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+  },
+  subHeader: {
+    backgroundColor : "#2089dc",
+    color : "white",
+    textAlign : "center",
+    paddingVertical : 5,
+    marginBottom : 10
   }
+});
 
-  onButtonClick3 = () => {
-    Modal.prompt(
-      'Login',
-      'Pleas input login information',
-      (login: any, password: any) =>
-        console.log(`login: ${login}, password: ${password}`),
-      'login-password',
-      '',
-      ['Please input name', 'Please input password'],
-    )
-  }
-
-  onButtonClick4 = () => {
-    Modal.prompt(
-      'Input password',
-      'password message',
-      (password: any) => console.log(`password: ${password}`),
-      'secure-text',
-      'defaultValue',
-    )
-  }
-
-  onButtonClick5 = () => {
-    Modal.prompt(
-      'Name',
-      'name message',
-      (password: any) => console.log(`password: ${password}`),
-      'default',
-      '',
-      ['please input name'],
-    )
-  }
-
-  onButtonClick6 = () => {
-    Modal.operation(
-      [
-        { text: '标为未读', onPress: () => console.log('标为未读被点击了') },
-        { text: '置顶聊天', onPress: () => console.log('置顶聊天被点击了') },
-      ],
-      () => {
-        console.log('返回键点击')
-        return false
-      },
-    )
-  }
-  render() {
-    const footerButtons = [
-      { text: 'Cancel', onPress: () => console.log('cancel') },
-      { text: 'Ok', onPress: () => console.log('ok') },
-    ]
-    return (
-      <Provider>
-        <ScrollView style={{ marginTop: 20 }}>
-          <WingBlank>
-            <Button onPress={() => this.setState({ visible: true })}>
-              showModal
-            </Button>
-            <WhiteSpace />
-            <Button onPress={() => this.setState({ visible1: true })}>
-              transparent:false
-            </Button>
-            <WhiteSpace />
-            <Button onPress={() => this.setState({ visible2: true })}>
-              popup
-            </Button>
-            <WhiteSpace />
-            <Button onPress={this.onButtonClick}>Modal.alert</Button>
-            <WhiteSpace />
-            <Button onPress={this.onButtonClickPromise}>
-              Modal.alert (promise)
-            </Button>
-            <WhiteSpace />
-            <Button onPress={this.onButtonClick2}>Modal.opertation</Button>
-            <WhiteSpace />
-            <Button onPress={this.onButtonClick6}>
-              Modal.opertation (onBackHandler)
-            </Button>
-            <WhiteSpace />
-            <Button onPress={this.onButtonClick5}>
-              Modal.prompt (default)
-            </Button>
-            <WhiteSpace />
-            <Button onPress={this.onButtonClick3}>
-              Modal.prompt (login-password)
-            </Button>
-            <WhiteSpace />
-            <Button onPress={this.onButtonClick4}>
-              Modal.prompt (secure-text)
-            </Button>
-          </WingBlank>
-          <Modal
-            title="Title"
-            transparent
-            onClose={this.onClose}
-            maskClosable
-            visible={this.state.visible}
-            closable
-            footer={footerButtons}>
-            <View style={{ paddingVertical: 20 }}>
-              <Text style={{ textAlign: 'center' }}>Content...</Text>
-              <Text style={{ textAlign: 'center' }}>Content...</Text>
-            </View>
-            <Button type="primary" onPress={this.onClose}>
-              close modal
-            </Button>
-          </Modal>
-          <Modal
-            transparent={false}
-            visible={this.state.visible1}
-            animationType="slide-up"
-            onClose={this.onClose1}>
-            <View style={{ paddingVertical: 220 }}>
-              <Text style={{ textAlign: 'center' }}>Content...</Text>
-              <Text style={{ textAlign: 'center' }}>Content...</Text>
-            </View>
-            <Button
-              type="primary"
-              onPress={() => Toast.info('Hello Toast in Modal now works')}>
-              Hello Toast in Modal now works
-            </Button>
-            <Button type="primary" onPress={this.onClose1}>
-              close modal
-            </Button>
-          </Modal>
-          <Modal
-            popup
-            visible={this.state.visible2}
-            animationType="slide-up"
-            onClose={this.onClose2}>
-            <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
-              <Text style={{ textAlign: 'center' }}>Content...</Text>
-              <Text style={{ textAlign: 'center' }}>Content...</Text>
-            </View>
-            <Button type="primary" onPress={this.onClose2}>
-              close modal
-            </Button>
-          </Modal>
-        </ScrollView>
-      </Provider>
-    )
-  }
-}
+export default Sliders;
