@@ -90,6 +90,7 @@ export function LibraryListScreen({ route, navigate }) {
 
 export function DemoScreen({ route, navigate }) {
   const { controlType, library } = route.params;
+  console.log("controlType =", controlType, ",library = ", library);
   const ComponentToRender = componentData[controlType][library];
 
   return (
