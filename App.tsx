@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import * as eva from "@eva-design/eva";
-import { ApplicationProvider, Button } from "@ui-kitten/components";
+import { ApplicationProvider, Button, IconRegistry } from "@ui-kitten/components";
 import { componentData } from "@/src/componentData";
 import { PaperProvider } from "react-native-paper";
+import { FeatherIconsPack } from "./feather-icons";
 
 // 用来管理当前显示的屏幕
 const SCREENS = {
@@ -24,6 +25,7 @@ export default function App() {
 
   return (
     <PaperProvider>
+      <IconRegistry icons={FeatherIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
         {currentScreen === SCREENS.ComponentTypeScreen && (
           <ComponentTypeScreen navigate={navigate} />
@@ -97,7 +99,7 @@ export function DemoScreen({ route, navigate }) {
   const ComponentToRender = componentData[controlType][library];
 
   return (
-    <ScrollView>
+    <ScrollView style={{ flex: 1 }}>
       <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
         <TouchableOpacity onPress={() => navigate(SCREENS.LibraryListScreen, { controlType })}>
           <Text style={{ fontSize: 18, marginRight: 10 }}>{"< Back"}</Text>
