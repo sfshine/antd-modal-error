@@ -19,7 +19,7 @@ export const IconAnimationShowcase = (): React.ReactElement => {
       {...props}
       ref={zoomIconRef}
       animation='zoom'
-      name='maximize-outline'
+      name='pluscircle'
     />
   );
 
@@ -28,7 +28,7 @@ export const IconAnimationShowcase = (): React.ReactElement => {
       {...props}
       ref={pulseIconRef}
       animation='pulse'
-      name='activity'
+      name='heart'
     />
   );
 
@@ -47,7 +47,7 @@ export const IconAnimationShowcase = (): React.ReactElement => {
       ref={infiniteAnimationIconRef}
       animationConfig={{ cycles: Infinity }}
       animation='shake'
-      name='clock-outline'
+      name='clockcircleo'
     />
   );
 
