@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, View } from "react-native";
 import { componentData } from "@/src/componentData";
 import { Button } from "@ui-kitten/components";
 
 export function LibraryListScreen({ route, navigation }) {
-  const { controlType } = route.params;
+  const { controlType = "Dialog" } = route?.params || {};
   const libraries = Object.keys(componentData[controlType]);
 
-  console.log("LibraryListScreen render");
+  console.log(route.params);
+
+  useEffect(() => {
+    console.log("LibraryListScreen mounted");
+  }, []);
+
   return (
     <ScrollView>
       <View>
@@ -16,8 +21,8 @@ export function LibraryListScreen({ route, navigation }) {
             style={{ marginTop: 10 }}
             key={index}
             onPress={() => {
-              console.log("DemoScreen");
-              // navigation.navigate("DemoScreen", { controlType, library });
+              // alert("Button pressed");
+              navigation.navigate("DemoScreen", { controlType, library });
             }}
           >{library}</Button>
         ))}

@@ -3,7 +3,7 @@ import { ScrollView } from "react-native";
 import { componentData } from "@/src/componentData";
 import { Button } from "@ui-kitten/components";
 
-export function ComponentTypeScreen({ route, navigation }) {
+export function ComponentTypeScreen({ navigation }) {
   const controlTypes = Object.keys(componentData);
 
   return (
@@ -13,8 +13,7 @@ export function ComponentTypeScreen({ route, navigation }) {
           style={{ marginTop: 10 }}
           key={index}
           onPress={() => {
-            console.log("LibraryListScreen");
-            navigation.navigate("LibraryListScreen", { controlType });
+            navigation.navigate("LibraryListScreen", { controlType, key: Math.random().toString() });
           }}
         >{controlType}</Button>
       ))}
