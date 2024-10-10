@@ -3,6 +3,7 @@ import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, Button } from "@ui-kitten/components";
 import { componentData } from "@/src/componentData";
+import { PaperProvider } from "react-native-paper";
 
 // 用来管理当前显示的屏幕
 const SCREENS = {
@@ -22,17 +23,19 @@ export default function App() {
   };
 
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      {currentScreen === SCREENS.ComponentTypeScreen && (
-        <ComponentTypeScreen navigate={navigate} />
-      )}
-      {currentScreen === SCREENS.LibraryListScreen && (
-        <LibraryListScreen navigate={navigate} route={{ params: screenParams }} />
-      )}
-      {currentScreen === SCREENS.DemoScreen && (
-        <DemoScreen navigate={navigate} route={{ params: screenParams }} />
-      )}
-    </ApplicationProvider>
+    <PaperProvider>
+      <ApplicationProvider {...eva} theme={eva.light}>
+        {currentScreen === SCREENS.ComponentTypeScreen && (
+          <ComponentTypeScreen navigate={navigate} />
+        )}
+        {currentScreen === SCREENS.LibraryListScreen && (
+          <LibraryListScreen navigate={navigate} route={{ params: screenParams }} />
+        )}
+        {currentScreen === SCREENS.DemoScreen && (
+          <DemoScreen navigate={navigate} route={{ params: screenParams }} />
+        )}
+      </ApplicationProvider>
+    </PaperProvider>
   );
 }
 
