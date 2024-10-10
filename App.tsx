@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ScrollView, View, Button, Text } from "react-native";
+import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import * as eva from "@eva-design/eva";
-import { ApplicationProvider } from "@ui-kitten/components";
+import { ApplicationProvider, Button } from "@ui-kitten/components";
 import { componentData } from "@/src/componentData";
 
 // 用来管理当前显示的屏幕
@@ -41,15 +41,19 @@ export function ComponentTypeScreen({ navigate }) {
 
   return (
     <ScrollView>
+      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginVertical: 10 }}>
+        <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center" }}>
+          Component Types
+        </Text>
+      </View>
       {controlTypes.map((controlType, index) => (
         <Button
-          title={controlType}
           style={{ marginTop: 10 }}
           key={index}
           onPress={() => {
             navigate(SCREENS.LibraryListScreen, { controlType });
           }}
-        />
+        >{controlType}</Button>
       ))}
     </ScrollView>
   );
@@ -61,16 +65,23 @@ export function LibraryListScreen({ route, navigate }) {
 
   return (
     <ScrollView>
+      <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
+        <TouchableOpacity onPress={() => navigate(SCREENS.ComponentTypeScreen)}>
+          <Text style={{ fontSize: 18, marginRight: 10 }}>{"< Back"}</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center" }}>
+          {controlType} Libraries
+        </Text>
+      </View>
       <View>
         {libraries.map((library, index) => (
           <Button
-            title={library}
             style={{ marginTop: 10 }}
             key={index}
             onPress={() => {
               navigate(SCREENS.DemoScreen, { controlType, library });
             }}
-          />
+          >{library}</Button>
         ))}
       </View>
     </ScrollView>
@@ -83,10 +94,14 @@ export function DemoScreen({ route, navigate }) {
 
   return (
     <ScrollView>
-      <Button
-        title="Back"
-        onPress={() => navigate(SCREENS.LibraryListScreen, { controlType })}
-      />
+      <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
+        <TouchableOpacity onPress={() => navigate(SCREENS.LibraryListScreen, { controlType })}>
+          <Text style={{ fontSize: 18, marginRight: 10 }}>{"< Back"}</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center" }}>
+          {library} Demo
+        </Text>
+      </View>
       <View style={{ marginTop: 20 }}>
         <ComponentToRender />
       </View>
