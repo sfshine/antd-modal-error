@@ -1,40 +1,23 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { Avatar, Button, Layout, Popover, Text } from "@ui-kitten/components";
+import React from 'react';
+import { Button, Tooltip } from '@ui-kitten/components';
 
-export const PopoverSimpleUsageShowcase = (): React.ReactElement => {
+export const TooltipSimpleUsageShowcase = (): React.ReactElement => {
 
   const [visible, setVisible] = React.useState(false);
 
   const renderToggleButton = (): React.ReactElement => (
     <Button onPress={() => setVisible(true)}>
-      TOGGLE POPOVER
+      TOGGLE TOOLTIP
     </Button>
   );
 
   return (
-    <Popover
-      visible={visible}
+    <Tooltip
       anchor={renderToggleButton}
+      visible={visible}
       onBackdropPress={() => setVisible(false)}
     >
-      <Layout style={styles.content}>
-        <Text>
-          Welcome to UI Kitten 😻
-        </Text>
-      </Layout>
-    </Popover>
+      Welcome to UI Kitten 😻
+    </Tooltip>
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 4,
-    paddingVertical: 8
-  },
-  avatar: {
-    marginHorizontal: 4
-  }
-});

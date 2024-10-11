@@ -12,19 +12,28 @@ import LinearProgressAPI from "@/src/rne/ProgressBar";
 import { CircularProgressBarStatesShowcase } from "@/src/kitten/ProgressCircle";
 import OverlayComponent from "@/src/rne/Modal";
 import MyComponentModal from "@/src/paper/Modal";
-import { BottomSheet, Icon } from "@rneui/themed";
+import { BottomSheet } from "@rneui/themed";
 import { RangeCalendarSimpleUsageShowcase } from "@/src/rne/Calender";
-import { PopoverSimpleUsageShowcase } from "@/src/kitten/Popover";
+import { TooltipSimpleUsageShowcase } from "@/src/kitten/Popover";
 import { RNETooltip } from "@/src/rne/Popover";
 import MyComponentTooltip from "@/src/paper/Popover";
 import { OverflowMenuNoMarkersShowcase } from "@/src/kitten/DropDownMenu";
 import { InputStatusShowcase } from "@/src/kitten/Input";
 import MyComponentInput from "@/src/paper/Input";
 import { RneInput } from "@/src/rne/Input";
-import { IconAnimationShowcase, IconWithinComponentsShowcase } from "@/src/kitten/Icon";
+import { IconAnimationShowcase } from "@/src/kitten/Icon";
+import { TabBarThemingShowcase } from "@/src/kitten/TabBar";
+import { ButtonAccessoriesShowcase } from "@/src/kitten/Button";
+import MyComponentButton from "@/src/paper/Button";
+import RneButton from "@/src/rne/Button";
 
 // 创建数据结构，值为具体的组件
 export const componentData = {
+  Button: {
+    "UI Kitten": ButtonAccessoriesShowcase,
+    "React Native Paper": MyComponentButton,
+    "React Native Elements": RneButton
+  },
   Dialog: {
     "UI Kitten": ModalWithBackdropShowcase,
     "React Native Paper": MyComponent,
@@ -33,6 +42,9 @@ export const componentData = {
   Tab: {
     "UI Kitten": TabViewSimpleUsageShowcase,
     "React Native Elements": RneTab
+  },
+  TabBar: {
+    "UI Kitten": TabBarThemingShowcase
   },
   Switch: {
     "UI Kitten": ToggleStatusShowcase,
@@ -58,8 +70,8 @@ export const componentData = {
   Calender: {
     "UI Kitten": RangeCalendarSimpleUsageShowcase
   },
-  Popover: {
-    "UI Kitten": PopoverSimpleUsageShowcase,
+  Tooltip: {
+    "UI Kitten": TooltipSimpleUsageShowcase,
     "Paper": MyComponentTooltip,
     "RNE": RNETooltip
   },
