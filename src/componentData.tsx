@@ -26,6 +26,11 @@ import { TabBarThemingShowcase } from "@/src/kitten/TabBar";
 import { ButtonAccessoriesShowcase } from "@/src/kitten/Button";
 import MyComponentButton from "@/src/paper/Button";
 import RneButton from "@/src/rne/Button";
+import { RadioButton } from "react-native-paper";
+import { Radio } from "@ui-kitten/components";
+import { RadioStatusShowcase } from "@/src/kitten/Radio";
+import MyComponentRadio from "@/src/paper/Radio";
+import CheckboxComponent from "@/src/rne/Radio";
 
 // 创建数据结构，值为具体的组件
 export const componentData = {
@@ -45,6 +50,11 @@ export const componentData = {
   },
   TabBar: {
     "UI Kitten": TabBarThemingShowcase
+  },
+  RadioButton: {
+    "UI Kitten": RadioStatusShowcase,
+    "React Native Paper": MyComponentRadio,
+    "React Native Elements": CheckboxComponent
   },
   Switch: {
     "UI Kitten": ToggleStatusShowcase,
